@@ -40,12 +40,14 @@
 		</javaClientGenerator>
 		
 		<!-- 指定表的生成策略 -->
-		<table tableName="admin" domainObjectName="Admin"></table>
+
+		<table tableName="client" domainObjectName="Client"></table>
+		<!--<table tableName="admin" domainObjectName="Admin"></table>
 		<table tableName="course" domainObjectName="Course"></table>
 		<table tableName="speaker" domainObjectName="Speaker"></table>
 		<table tableName="subject" domainObjectName="Subject"></table>
 		<table tableName="user" domainObjectName="User"></table>
-		<table tableName="video" domainObjectName="Video"></table>
+		<table tableName="video" domainObjectName="Video"></table>-->
 
 	</context>
 </generatorConfiguration>

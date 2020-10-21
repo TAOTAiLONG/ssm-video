@@ -10,7 +10,7 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/videos?serverTimezone=Asia/Shanghai" userId="root"
 			password="root">
 		</jdbcConnection>
@@ -48,12 +48,13 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
-		<table schema="admin" tableName="Admin"></table>
+		<!--<table schema="client" tableName="Client"></table>-->
+		<!--<table schema="admin" tableName="Admin"></table>
 		<table schema="course" tableName="Course"></table>
 		<table schema="speaker" tableName="Speaker"></table>
 		<table schema="subject" tableName="Subject"></table>
 		<table schema="user" tableName="User"></table>
 		<table schema="video" tableName="Video"></table>
-		<table schema="" tableName="user"></table>
+		<table schema="" tableName="user"></table>-->
 	</context>
 </generatorConfiguration>

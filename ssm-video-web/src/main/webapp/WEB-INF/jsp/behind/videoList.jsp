@@ -335,6 +335,7 @@
 
             </tbody>
         </table>
+        <span><p>当前第：${pageInfo.pageNum}页,总共有：${pageInfo.pages}页,总记录数：${pageInfo.total}</p></span>
     </form>
 
     <div style="width: 380px; margin: 0 auto; margin-top: 50px; text-align: center;">
@@ -356,14 +357,15 @@
                 </li>
             </c:if>
 
-            <c:forEach begin="1" end="${pageInfo.pages}" varStatus="page">
+            <%--<c:forEach begin="1" end="${pageInfo.pages}" varStatus="page">
                 <c:if test="${pageInfo.pageNum == page.count}">
                     <li class="active"><a href="javascript:void(0)" onclick="queryVideo(${page.count})">${page.count }</a></li>
                 </c:if>
                 <c:if test="${pageInfo.pageNum != page.count }">
                     <li><a href="javascript:void(0)" onclick="queryVideo(${page.count})">${page.count }</a></li>
                 </c:if>
-            </c:forEach>
+            </c:forEach>--%>
+            <li class="active"><a href="javascript:void(0)" onclick="queryVideo(${pageInfo.pageNum})">${pageInfo.pageNum}</a></li>
 
             <c:if test="${pageInfo.pageNum != pageInfo.pages || pageInfo.pageNum == null}">
                 <li >

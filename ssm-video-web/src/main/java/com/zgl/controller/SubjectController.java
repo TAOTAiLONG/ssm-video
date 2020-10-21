@@ -16,6 +16,11 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
+    /**
+     * 查询所有课程分类信息
+     * @param model
+     * @return
+     */
     @RequestMapping("/selectAll")
     public String subject_selectAll(Model model) {
         List<Subject> subjectList = subjectService.findAll();

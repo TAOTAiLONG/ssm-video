@@ -13,4 +13,6 @@ public interface SpeakerService {
     int UpdateSpeaker(Speaker speaker);
 
     int saveSpeaker(Speaker speaker);
+
+    void speakerDel(Integer id);
 }

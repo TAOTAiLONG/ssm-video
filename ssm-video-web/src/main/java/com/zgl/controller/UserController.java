@@ -170,7 +170,7 @@ public class UserController {
     @RequestMapping("/loginOut2")
     public String user_loginOut2(HttpSession session) {
 
-        return "before/index";
+        return "/before/index";
     }
 
     /**

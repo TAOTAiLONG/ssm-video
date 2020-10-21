@@ -86,13 +86,28 @@ public class CourseController {
      */
     @RequestMapping("/addCourse")
     public String addVideo(Course course1, Model model) {
-        System.out.println(course1.getId());
+        //System.out.println(course1.getId());
 
         Course course = courseService.findCourseOne(course1.getId());
 
         model.addAttribute("course", course);
 
         return "behind/addCourse";
+    }
+
+    /**
+     * 根据Id删除课程信息
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/courseDel")
+    public String courseDel(Integer id) {
+        System.out.println(id);
+
+        courseService.courseDel(id);
+
+        return "success";
     }
 
     /**

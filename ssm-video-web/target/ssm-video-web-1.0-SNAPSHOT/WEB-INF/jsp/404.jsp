@@ -52,7 +52,7 @@
     intervalid = setInterval("fun()", 1000);
     function fun() {
         if (i == 0){
-            window.location.href = "${pageContext.request.contextPath}";
+            window.location.href = "${pageContext.request.contextPath}/WEB-INF/jsp/before/index.jsp";
             clearInterval(intervalid);
         }
         xy.innerHTML = i;

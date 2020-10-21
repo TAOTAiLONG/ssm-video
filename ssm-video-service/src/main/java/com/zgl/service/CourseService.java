@@ -17,4 +17,6 @@ public interface CourseService {
     List<Course> findCourseBySubjectId(Integer subjectId);
 
     Course findCourseByCourseId(Integer courseId);
+
+    void courseDel(Integer id);
 }

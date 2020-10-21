@@ -25,7 +25,7 @@
     <script src="${pageContext.request.contextPath}/js/confirm.js"></script>
     <script type="text/javascript">
         function showAddPage() {
-            location.href = "${pageContext.request.contextPath}/speaker/addSpeaker";
+            location.href = "${pageContext.request.contextPath}/speaker/addSpeakerView";
         }
 
         function delSpeakerById(Obj, id, name) {
@@ -35,7 +35,7 @@
                     'primary': true,
                     'callback': function () {
                         var param = {"id": id};
-                        $.post("speakerDel", param, function (data) {
+                        $.post("/speaker/speakerDel", param, function (data) {
                             if (data == 'success') {
                                 Confirm.show('温馨提示：', '删除成功');
                                 $(Obj).parent().parent().remove();
@@ -138,7 +138,9 @@
 
         </tbody>
     </table>
+    <span><p>当前第：${pageInfo.pageNum}页,总共有：${pageInfo.pages}页,总记录数：${pageInfo.total}</p></span>
 </div>
+
 <div class="container">
     <div style="width: 380px; margin: 0 auto; margin-top: 50px; text-align: center;">
         <ul class="pagination" style="margin-top: 10px;">
@@ -159,14 +161,16 @@
                 </li>
             </c:if>
 
-            <c:forEach begin="1" end="${pageInfo.pages}" varStatus="page">
+            <%--<c:forEach begin="1" end="${pageInfo.pages}" varStatus="page">
                 <c:if test="${pageInfo.pageNum == page.count}">
                     <li class="active"><a href="javascript:void(0);">${page.count}</a></li>
                 </c:if>
                 <c:if test="${pageInfo.pageNum != page.count }">
                     <li><a href="${pageContext.request.contextPath }/speaker/showSpeakerList?pn=${page.count}">${page.count }</a></li>
                 </c:if>
-            </c:forEach>
+            </c:forEach>--%>
+
+            <li class="active"><a href="${pageContext.request.contextPath }/speaker/showSpeakerList?pn=${pageInfo.pageNum}">${pageInfo.pageNum}</a></li>
 
             <c:if test="${pageInfo.pageNum != pageInfo.pages || pageInfo.pageNum == null}">
                 <li >

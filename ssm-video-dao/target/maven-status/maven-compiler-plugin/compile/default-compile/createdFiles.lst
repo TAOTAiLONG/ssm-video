@@ -1,5 +1,6 @@
 com\zgl\dao\AdminMapper.class
 com\zgl\dao\SpeakerMapper.class
+com\zgl\dao\ClientMapper.class
 com\zgl\dao\SubjectMapper.class
 com\zgl\dao\UserMapper.class
 com\zgl\dao\CourseMapper.class

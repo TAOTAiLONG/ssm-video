@@ -46,4 +46,9 @@ public class CourseServiceImpl implements CourseService {
     public Course findCourseByCourseId(Integer courseId) {
         return courseMapper.selectByPrimaryKeyWithVideo(courseId);
     }
+
+    @Override
+    public void courseDel(Integer id) {
+        courseMapper.deleteByPrimaryKey(id);
+    }
 }

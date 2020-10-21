@@ -32,4 +32,9 @@ public class SpeakerServiceImpl implements SpeakerService {
     public int saveSpeaker(Speaker speaker) {
         return speakerMapper.insertSelective(speaker);
     }
+
+    @Override
+    public void speakerDel(Integer id) {
+        speakerMapper.deleteByPrimaryKey(id);
+    }
 }

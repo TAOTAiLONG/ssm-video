@@ -23,6 +23,12 @@ public class SpeakerController {
     @Autowired
     private SpeakerService speakerService;
 
+    /**
+     * 分页
+     * @param pn
+     * @param model
+     * @return
+     */
     @RequestMapping("/showSpeakerList")
     public String speaker_list(@RequestParam(value = "pn",defaultValue = "1") Integer pn,
                              Model model) {
@@ -38,8 +44,14 @@ public class SpeakerController {
         return "behind/speakerList";//携带数据
     }
 
-    @RequestMapping("/addSpeaker")
-    public String addVideo(Speaker speaker1, Model model) {
+    /**
+     * 跳转到添加/修改讲师页面，并提交相关数据
+     * @param speaker1
+     * @param model
+     * @return
+     */
+    @RequestMapping("/addSpeakerView")
+    public String addSpeakerView(Speaker speaker1, Model model) {
         System.out.println(speaker1.getId());
 
         Speaker speaker = speakerService.findSpeakerOne(speaker1.getId());
@@ -50,6 +62,26 @@ public class SpeakerController {
         return "behind/addSpeaker";
     }
 
+    /**
+     * 根据Id删除讲师信息
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/speakerDel")
+    public String speakerDel(Integer id) {
+        System.out.println(id);
+
+        speakerService.speakerDel(id);
+
+        return "success";
+    }
+
+    /**
+     * 更新/保存讲师信息
+     * @param speaker
+     * @return
+     */
     @RequestMapping("/saveOrUpdate")
     public String saveOrUpdate(Speaker speaker) {
 

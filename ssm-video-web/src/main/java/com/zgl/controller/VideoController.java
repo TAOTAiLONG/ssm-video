@@ -44,26 +44,24 @@ public class VideoController {
      * @return
      */
     @RequestMapping("/list")
-    public String video_list(@RequestParam(defaultValue = "1", required = false) Integer pageNum,
+    public String video_list(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                              Model  model,
                              QueryVo queryVo) {
         model.addAttribute("queryVo",queryVo);
-        System.out.println(queryVo);
-        System.out.println(pageNum);
+        //System.out.println(queryVo);
+        //System.out.println(pageNum);
         //引入分页插件
         //在查询之前只需要调用  传入页码 以及分页大小
         PageHelper.startPage(pageNum,5);
         //startPage后面紧跟的查询就是一个分页查询
         List<Video> videos = videoService.findAllVideo(queryVo);
-        /*for (Video video : videos) {
-            String time = StringUtils.getTimeByInt(video.getTime());
-            video.setTime(time);
-        }*/
+        //连续显示的页数
+        PageInfo pageInfo = new PageInfo(videos,5);
 
         List<Speaker> speakerList = speakerService.findAll();
         List<Course> courseList = courseService.findAll();
 
-        PageInfo pageInfo = new PageInfo(videos,5);//连续显示的页数
+
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("speakerList", speakerList);
         model.addAttribute("courseList", courseList);
@@ -71,6 +69,12 @@ public class VideoController {
         return "behind/videoList";//携带数据
     }
 
+    /**
+     * 添加视频信息
+     * @param video1
+     * @param model
+     * @return
+     */
     @RequestMapping("/addVideo")
     public String addVideo(Video video1, Model model) {
 //        System.out.println(video1.getTitle());
@@ -87,6 +91,11 @@ public class VideoController {
         return "behind/addVideo";
     }
 
+    /**
+     * 更新/保存视频信息
+     * @param video
+     * @return
+     */
     @RequestMapping("/saveOrUpdate")
     public String saveOrUpdate(Video video) {
 
@@ -123,9 +132,8 @@ public class VideoController {
      * @param ids
      * @return
      */
-    @ResponseBody
     @RequestMapping("/delBatchVideos")
-    public String videoDel(Integer[] ids){
+    public String delBatchVideos(Integer[] ids){
 
         int res = 0;
         for (Integer id : ids) {
@@ -136,10 +144,16 @@ public class VideoController {
         }
         System.out.println("-----------");
 
-        return "删除失败!";
+        return null;
     }
 
-
+    /**
+     * 跳转到视频详情展示页面
+     * @param videoId
+     * @param subjectName
+     * @param model
+     * @return
+     */
     @RequestMapping("/showVideo")
     public String showVideo(Integer videoId, String subjectName, Model model) {
         //System.out.println(videoId + " : " + subjectName);
@@ -156,51 +170,5 @@ public class VideoController {
 
         return "before/section";
     }
-
-    /*@ResponseBody
-    @RequestMapping("/showVideo")
-    public Msg showVideo() {
-
-        Video video = videoService.findVideoById(218);
-
-        System.out.println(video);
-        *//*Course course = courseService.findCourseByCourseId(video.getCourseId());*//*
-
-        *//*model.addAttribute("course", course);
-        model.addAttribute("video", video);
-        model.addAttribute("subjectName", subjectName);*//*
-
-        return Msg.success().add("video", video);
-    }*/
-
-
-
-
-    /*public String video_list(@RequestParam(defaultValue = "1",required = false) Integer pageNum,
-                             @RequestParam(defaultValue = "2",required = false) Integer pageSize,
-                             Model  model,
-                             QueryVo queryVo){
-
-        model.addAttribute("queryVo",queryVo);
-
-        System.out.println(queryVo.getTitle());
-
-        PageHelper.startPage(pageNum,pageSize);
-
-        List<Video> videos = videoService.findAllVideo(queryVo);
-        List<Speaker> speakerList = speakerService.findAll();
-        List<Course> courseList = courseService.findAll();
-
-        PageInfo<Video> pageInfo = new PageInfo<>(videos);
-        model.addAttribute("pageInfo",pageInfo);
-        model.addAttribute("speakerList", speakerList);
-        model.addAttribute("courseList", courseList);
-
-        return "behind/videoList";//携带数据
-    }*/
-
-
-
-
 
 }

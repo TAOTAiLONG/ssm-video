@@ -19,7 +19,8 @@
     <script src="${pageContext.request.contextPath}/js/gVerify.js"></script>
     <script type="text/javascript">
 
-        $(function () {
+
+    $(function () {
 
             //div 两个哪个显示呢？
             if (null != "${user.email}" && "${user.email}" != "") {
@@ -31,6 +32,23 @@
             }
 
         });
+
+    function commitClientForm() {
+
+        var client = $("#iform").serialize();
+
+        $.post("/client/clientPy", client, function (data) {
+            //alert(data);
+            if (data == 'success') {
+
+                alert("报名成功！")
+            } else {
+                alert("报名失败请确认报名信息是否填写正确！")
+            }
+
+        });
+        return false;
+    }
     </script>
 </head>
 
@@ -65,7 +83,7 @@
              onclick="location.href='${pageContext.request.contextPath}'" draggable="false">
         <ul class="text_13 f_right">
             <li>
-                <a href="#" target="_blank">首页</a>
+                <a href="${pageContext.request.contextPath}/index.jsp" target="_blank">首页</a>
             </li>
             <li class="nav_down">
                 高端课程<img src="${pageContext.request.contextPath}/img/nav_down.png" alt="" draggable="false">
@@ -196,15 +214,15 @@
             <div class="form_line2"></div>
             <div class="wrap">
                 <input type="hidden" name="action" value="post"/>
-                <input type="hidden" name="diyid" value="3"/>
-                <input type="hidden" name="do" value="2"/>
-                <input type="hidden" name="ip" value=""/>
-                <input type="hidden" name="time" value=""/>
+                <%--<input type="hidden" name="diyid" value="3"/>--%>
+                <input type="hidden" name="checked" value="0"/>
+                <%--<input type="hidden" name="ip" value=""/>--%>
+                <%--<input type="hidden" name="time" value=""/>--%>
                 <div><label for="name">姓名：</label><input name="name" id="name" type="text" class="form-control"/></div>
                 <div><label for="tel">手机号：</label><input name="tel" id="tel" type="text" class="form-control"/></div>
                 <div><label for="qq">QQ：</label><input name="qq" id="qq" type="text" class="form-control"/></div>
             </div>
-            <input class="button" type="submit" value="立即报名"/>
+            <input class="button" type="submit" onclick="return commitClientForm();" value="立即报名"/>
         </form>
     </div>
 </div>
