@@ -26,11 +26,35 @@ public class UserController {
      * @param user
      * @return
      */
+    @ResponseBody
     @RequestMapping("/insertUser")
-    public String insertUser(User user) {
+    public String insertUser(User user, HttpSession session) {
         System.out.println(user.getPassword());
         System.out.println(user.getEmail());
-        return null;
+
+        Integer user1 = userService.insertUser(user);
+        if (user1 != null) {
+            session.setAttribute("user", user);
+            return "success";
+        }
+        return "fail";
+    }
+
+    /**
+     * 验证邮箱是否已存在
+     * @param email
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/validateEmail")
+    public String validateEmail(String email) {
+        System.out.println(email);
+
+        List<User> users = userService.findUserByEmail(email);
+        if (users.size() > 0) {
+            return "fail";
+        }
+        return "success";
     }
 
     /**

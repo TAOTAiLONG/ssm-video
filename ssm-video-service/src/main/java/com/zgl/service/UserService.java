@@ -10,5 +10,7 @@ public interface UserService {
 
     List<User> findUserByEmail(String email);
 
-    int updateUser(User user);
+    Integer updateUser(User user);
+
+    Integer insertUser(User user);
 }

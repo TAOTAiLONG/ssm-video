@@ -115,8 +115,8 @@ $("#regEmail").blur(function () {
     // js 判断不相等  不能使用   !""==xxxx
     if (null != emailVal && "" != emailVal) {
         var params = {"email": emailVal};
-        // alert(params);
-        $.post('/' + getRootPath() + "/user/validateEmail", params, function (data) {
+         //alert(params);
+        $.post("/user/validateEmail", params, function (data) {
             if (data == "success") {
                 regIsCommitEmail = true;
                 $("#emailMsg").text("该邮箱可用").css("color", "green");
@@ -163,15 +163,15 @@ var verifyCode;
 function commitRegForm() {
 
     var code = $("input[name='yzm']").val();
-    // alert(code);
-    // alert(regIsCommitEmail+","+regIsCommitPsw);
+     alert(code);
+     alert(regIsCommitEmail+","+regIsCommitPsw);
     if (regIsCommitEmail && regIsCommitPsw && verifyCode.validate(code)) {
         //用js提交表单
         // $("#regForm").commit();
 
         $.ajax({
 
-            url: '/' + getRootPath() + "/user/insertUser",
+            url:"/user/insertUser",
             data: $("#regForm").serialize(),
             type: "POST",
             success: function (data) {
