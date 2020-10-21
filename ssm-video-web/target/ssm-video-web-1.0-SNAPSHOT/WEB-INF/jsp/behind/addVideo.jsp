@@ -110,7 +110,7 @@
 
             </ul>
             <p class="navbar-text navbar-right">
-                <span>${sessionScope.userName}</span> <i class="glyphicon glyphicon-log-in"
+                <span>${admin.username}</span> <i class="glyphicon glyphicon-log-in"
                                                          aria-hidden="true"></i>&nbsp;&nbsp;<a
                     href="${pageContext.request.contextPath}/admin/exit"
                     class="navbar-link">退出</a>

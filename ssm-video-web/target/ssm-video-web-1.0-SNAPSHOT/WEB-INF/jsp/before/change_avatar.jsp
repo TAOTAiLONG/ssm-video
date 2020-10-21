@@ -82,7 +82,6 @@
                                  src="http://localhost:8081/video/${user.imgurl}">
                         </c:if>
 
-
                         <p style="text-align: center;">当前头像</p>
                     </div>
                     <div class="profile_ifo_area">

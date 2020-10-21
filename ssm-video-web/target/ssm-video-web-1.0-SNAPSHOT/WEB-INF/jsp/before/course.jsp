@@ -44,7 +44,7 @@
 
 
             //div 两个哪个显示呢？
-            if (null != "${sessionScope.userAccount}" && "${sessionScope.userAccount}" != "") {
+            if (null != "${user.email}" && "${user.email}" != "") {
                 $("#regBlock").css("display", "none");
                 $("#userBlock").css("display", "block");
             } else {
@@ -70,7 +70,7 @@
         <div id="userBlock" style="display:none;float:right">
 
             <a href="javascript:;" id="loginout">退出</a>
-            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${sessionScope.userAccount}</a>
+            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${user.email}</a>
         </div>
 
         <a onclick="JavaScript:addFavorite2()"><img src="${pageContext.request.contextPath}/img/sc.png"
@@ -256,10 +256,10 @@
 <script type="text/javascript">
 
     function getVideo(videoId) {
-        //alert("${sessionScope.userAccount}");
+        //alert("${user.email}");
         //判断用户是否登录
         //alert($("#isLogin").val());
-        if ((null != "${sessionScope.userAccount}" && "${sessionScope.userAccount}" != "") || ($("#isLogin").val() == 1)) {
+        if ((null != "${user.email}" && "${user.email}" != "") || ($("#isLogin").val() == 1)) {
             //如果登录
             location.href = "${pageContext.request.contextPath}/video/showVideo?videoId=" + videoId + "&subjectName=" + '${subject.subjectName}';
         } else {

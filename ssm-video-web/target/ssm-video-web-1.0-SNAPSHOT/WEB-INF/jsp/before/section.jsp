@@ -21,7 +21,7 @@
     <script type="text/javascript">
         $(function () {
             //div 两个哪个显示呢？
-            if (null != "${sessionScope.userAccount}" && "${sessionScope.userAccount}" != "") {
+            if (null != "${user.email}" && "${user.email}" != "") {
                 $("#regBlock").css("display", "none");
                 $("#userBlock").css("display", "block");
             } else {
@@ -50,7 +50,7 @@
         <div id="userBlock" style="display:none;float:right">
 
             <a href="javascript:;" id="loginout2">退出</a>
-            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${sessionScope.userAccount}</a>
+            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${user.email}</a>
         </div>
 
         <a onclick="JavaScript:addFavorite2()"><img src="${pageContext.request.contextPath}/img/sc.png"
