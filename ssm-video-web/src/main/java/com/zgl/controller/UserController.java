@@ -2,6 +2,7 @@ package com.zgl.controller;
 
 import com.zgl.pojo.User;
 import com.zgl.service.UserService;
+import com.zgl.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,6 +77,56 @@ public class UserController {
             return "success";
         }
         return "fail";
+    }
+
+    /**
+     * 进入忘记密码页面
+     * @return
+     */
+    @RequestMapping("/forgetPassword")
+    public String forgetPassword() {
+
+        return "/before/forget_password";
+    }
+
+    /**
+     * 忘记密码，邮箱验证修改密码操作
+     * @param email
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/sendEmail")
+    public String sendEmail(String email, HttpSession session) {
+
+        List<User> users = userService.findUserByEmail(email);
+        if (users.size() != 0) {
+            return "hasNoUser";
+        }
+        String code = MailUtils.getValidateCode(6);
+        MailUtils.sendMail("email", "测试邮件随机生成的验证码是：" + code, "你好，这是一封测试邮件，无需回复。");
+        System.out.println("发送成功");
+        session.setAttribute("code", code);
+
+        return "success";
+    }
+
+    /**
+     * 比对验证验证码是否一致
+     * @param email
+     * @param code
+     * @param session
+     * @return
+     */
+    @RequestMapping("/validateEmailCode")
+    public String validateEmailCode(String email, String code, HttpSession session) {
+        System.out.println("验证码：" + code);
+
+        if (session.getAttribute("code").equals(code)) {
+            List<User> users = userService.findUserByEmail(email);
+            session.setAttribute("user", users.get(0));
+            return "/before/index";
+        }
+        return "/before/forget_password";
     }
 
     /**
@@ -156,13 +207,23 @@ public class UserController {
     }
 
     /**
+     * 跳转到密码安全页面
+     * @return
+     */
+    @RequestMapping("/passwordSafe")
+    public String passwordSafe() {
+
+        return "/before/password_safe";
+    }
+
+    /**
      * 跳转到更改密码页面
      * @param session
      * @param model
      * @return
      */
     @RequestMapping("/restPassword")
-    public String passwordSafe(HttpSession session, Model model) {
+    public String restPassword(HttpSession session, Model model) {
 
         User user = (User) session.getAttribute("user");
         List<User> users = userService.findUserByEmail(user.getEmail());
@@ -171,6 +232,33 @@ public class UserController {
         model.addAttribute("user", users.get(0));
 
         return "/before/reset_password";
+    }
+
+    /**
+     * 验证旧密码是否正确
+     * @param password
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/validatePassword")
+    public String validatePassword(String password, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        if (user.getPassword().equals(password)) {
+            return "success";
+        }
+        return "fail";
+    }
+
+    @RequestMapping("/updatePassword")
+    public String updatePassword(String newPassword, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        user.setPassword(newPassword);
+        userService.updateUser(user);
+
+        return "/before/my_profile";
     }
 
     /**
@@ -192,6 +280,12 @@ public class UserController {
     }
 
 
+    /**
+     * 跳转到更改头像页面
+     * @param session
+     * @param model
+     * @return
+     */
     @RequestMapping("/changeAvatar")
     public String changeAvatar(HttpSession session, Model model) {
 
@@ -200,6 +294,12 @@ public class UserController {
         return "/before/change_avatar";
     }
 
+    /**
+     * 上传图片
+     * @param session
+     * @param photo
+     * @return
+     */
     @RequestMapping("/upLoadImage")
     public String upLoadImage(HttpSession session, MultipartFile photo) {
 

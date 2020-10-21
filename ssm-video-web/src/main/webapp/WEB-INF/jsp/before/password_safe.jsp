@@ -154,7 +154,7 @@
                             </div>
                             <div class="form_submit dd">
                                 <input type="submit" value="保&#x3000;存">
-                                <a href="#">取消</a>
+                                <a href="${pageContext.request.contextPath}/user/showMyProfile">取消</a>
                             </div>
                         </form>
                     </div>
