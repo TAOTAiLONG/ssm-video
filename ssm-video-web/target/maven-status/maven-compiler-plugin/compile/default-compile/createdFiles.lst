@@ -1,0 +1,6 @@
+com\zgl\controller\VideoController.class
+com\zgl\controller\AdminController.class
+com\zgl\controller\SpeakerController.class
+com\zgl\controller\SubjectController.class
+com\zgl\controller\CourseController.class
+com\zgl\controller\UserController.class
