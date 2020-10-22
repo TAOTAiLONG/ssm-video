@@ -52,7 +52,7 @@ public class SpeakerController {
      */
     @RequestMapping("/addSpeakerView")
     public String addSpeakerView(Speaker speaker1, Model model) {
-        System.out.println(speaker1.getId());
+        //System.out.println(speaker1.getId());
 
         Speaker speaker = speakerService.findSpeakerOne(speaker1.getId());
         //List<Speaker> speakerList = speakerService.findAll();
@@ -70,11 +70,12 @@ public class SpeakerController {
     @ResponseBody
     @RequestMapping("/speakerDel")
     public String speakerDel(Integer id) {
-        System.out.println(id);
+        //System.out.println(id);
 
-        speakerService.speakerDel(id);
-
-        return "success";
+        if (speakerService.speakerDel(id) != 0){
+            return "success";
+        }
+        return "failed";
     }
 
     /**

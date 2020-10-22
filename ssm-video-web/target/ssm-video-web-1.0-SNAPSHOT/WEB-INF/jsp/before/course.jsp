@@ -70,7 +70,7 @@
         <div id="userBlock" style="display:none;float:right">
 
             <a href="javascript:;" id="loginout">退出</a>
-            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${user.email}</a>
+            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="email">${user.email}</a>
         </div>
 
         <a onclick="JavaScript:addFavorite2()"><img src="${pageContext.request.contextPath}/img/sc.png"
@@ -83,7 +83,7 @@
 </header>
 <nav class="w100">
     <div class="container">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Y先生教育的logo" onclick="location.href='index.html'"
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Y先生教育的logo" onclick="location.href='index.jsp'"
              draggable="false">
         <ul class="text_13 f_right">
             <li>
@@ -213,7 +213,7 @@
                 <input type="password" id="loginPassword" placeholder="请输入密码" name="password">
                 <div id="forget">
                     <a href="${pageContext.request.contextPath}/user/forgetPassword">忘记密码？</a>
-                    &#x3000;<a href="#" onclick="quickShow()">快速注册</a>
+                    &#x3000;<a href="#" onclick="return commitRegForm()">快速注册</a>
                 </div>
 
                 <input type="submit" onclick="return commitLogin()" value="登&#x3000;录">

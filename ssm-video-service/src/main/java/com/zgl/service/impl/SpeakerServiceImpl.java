@@ -34,7 +34,8 @@ public class SpeakerServiceImpl implements SpeakerService {
     }
 
     @Override
-    public void speakerDel(Integer id) {
-        speakerMapper.deleteByPrimaryKey(id);
+    public int speakerDel(Integer id) {
+
+        return speakerMapper.deleteByPrimaryKey(id);
     }
 }

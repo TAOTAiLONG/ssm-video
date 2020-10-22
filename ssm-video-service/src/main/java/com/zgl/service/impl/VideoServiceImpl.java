@@ -32,12 +32,12 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public int UpdateView(Video video) {
+    public int UpdateVideo(Video video) {
         return videoMapper.updateByPrimaryKeyWithBLOBs(video);
     }
 
     @Override
-    public int saveView(Video video) {
+    public int saveVideo(Video video) {
         return videoMapper.insertSelective(video);
     }
 

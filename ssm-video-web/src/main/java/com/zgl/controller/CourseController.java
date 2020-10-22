@@ -26,9 +26,11 @@ public class CourseController {
     private SubjectService subjectService;
 
     /**
-     * 查询所有课程分类
+     * 根据课程分类查询相应课程
+     * @param subjectId
+     * @param model
+     * @return
      */
-    //@ResponseBody
     @RequestMapping(value = "/course/{subjectId}")
     public String course(@PathVariable("subjectId") Integer subjectId, Model model) {
         System.out.println(subjectId);

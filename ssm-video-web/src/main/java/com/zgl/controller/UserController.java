@@ -2,11 +2,13 @@ package com.zgl.controller;
 
 import com.zgl.pojo.User;
 import com.zgl.service.UserService;
+import com.zgl.utils.ImageCut;
 import com.zgl.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -38,7 +41,7 @@ public class UserController {
             session.setAttribute("user", user);
             return "success";
         }
-        return "fail";
+        throw new RuntimeException("用户注册失败");
     }
 
     /**
@@ -53,7 +56,7 @@ public class UserController {
 
         List<User> users = userService.findUserByEmail(email);
         if (users.size() > 0) {
-            return "fail";
+            return "hasUser";
         }
         return "success";
     }
@@ -71,12 +74,11 @@ public class UserController {
         //System.out.println(user.getEmail());
 
         List<User> users = userService.login(user);
-
         if (users.size() != 0) {
             session.setAttribute("user", users.get(0));
             return "success";
         }
-        return "fail";
+        return "failed";
     }
 
     /**
@@ -86,7 +88,7 @@ public class UserController {
     @RequestMapping("/forgetPassword")
     public String forgetPassword() {
 
-        return "/before/forget_password";
+        return "before/forget_password";
     }
 
     /**
@@ -98,10 +100,14 @@ public class UserController {
     @RequestMapping("/sendEmail")
     public String sendEmail(String email, HttpSession session) {
 
-        List<User> users = userService.findUserByEmail(email);
+        /*List<User> users = userService.findUserByEmail(email);
         if (users.size() != 0) {
             return "hasNoUser";
+        }*/
+        if ("success".equals(validateEmail(email))) {
+            return "hasNoUser";
         }
+
         String code = MailUtils.getValidateCode(6);
         MailUtils.sendMail("email", "测试邮件随机生成的验证码是：" + code, "你好，这是一封测试邮件，无需回复。");
         System.out.println("发送成功");
@@ -111,7 +117,7 @@ public class UserController {
     }
 
     /**
-     * 比对验证验证码是否一致
+     * 比对验证验证码是否一致,一致则跳转到重置密码页面
      * @param email
      * @param code
      * @param session
@@ -124,9 +130,9 @@ public class UserController {
         if (session.getAttribute("code").equals(code)) {
             List<User> users = userService.findUserByEmail(email);
             session.setAttribute("user", users.get(0));
-            return "/before/index";
+            return "/before/reset_password";
         }
-        return "/before/forget_password";
+        return "before/forget_password";
     }
 
     /**
@@ -136,8 +142,10 @@ public class UserController {
      */
     @RequestMapping("/loginOut")
     public String user_loginOut(HttpSession session) {
-        session.setAttribute("user", null);
-        System.out.println(session.getAttributeNames());
+
+        session.removeAttribute("user");
+        //session.setAttribute("user", null);
+        //System.out.println(session.getAttributeNames());
 
         return "before/index";
     }
@@ -153,13 +161,14 @@ public class UserController {
     public String showMyProfile(HttpSession session, Model model) {
         //System.out.println(session.getAttribute("user"));
         User user = (User) session.getAttribute("user");
-        System.out.println(user.getId());
+        System.out.println(user.getEmail());
+        //System.out.println(user.getId());
         List<User> users = userService.findUserByEmail(user.getEmail());
         //System.out.println(users.get(0));
 
         model.addAttribute("user", users.get(0));
 
-        return "/before/my_profile";
+        return "before/my_profile";
     }
 
     /**
@@ -170,7 +179,7 @@ public class UserController {
     @RequestMapping("/loginOut2")
     public String user_loginOut2(HttpSession session) {
 
-        return "/before/index";
+        return "redirect:/index.jsp";
     }
 
     /**
@@ -188,7 +197,7 @@ public class UserController {
 
         model.addAttribute("user", users.get(0));
 
-        return "/before/change_profile";
+        return "before/change_profile";
     }
 
     /**
@@ -201,7 +210,7 @@ public class UserController {
 
         //System.out.println(user);
         int res = userService.updateUser(user);
-        System.out.println(res);
+        //System.out.println(res);
 
         return "redirect:/user/showMyProfile";
     }
@@ -213,7 +222,7 @@ public class UserController {
     @RequestMapping("/passwordSafe")
     public String passwordSafe() {
 
-        return "/before/password_safe";
+        return "before/password_safe";
     }
 
     /**
@@ -231,7 +240,7 @@ public class UserController {
 
         model.addAttribute("user", users.get(0));
 
-        return "/before/reset_password";
+        return "before/reset_password";
     }
 
     /**
@@ -248,7 +257,7 @@ public class UserController {
         if (user.getPassword().equals(password)) {
             return "success";
         }
-        return "fail";
+        return "failed";
     }
 
     @RequestMapping("/updatePassword")
@@ -258,7 +267,7 @@ public class UserController {
         user.setPassword(newPassword);
         userService.updateUser(user);
 
-        return "/before/my_profile";
+        return "redirect:/user/showMyProfile";
     }
 
     /**
@@ -291,7 +300,7 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "/before/change_avatar";
+        return "before/change_avatar";
     }
 
     /**
@@ -301,6 +310,45 @@ public class UserController {
      * @return
      */
     @RequestMapping("/upLoadImage")
+    public String upLoadImage(HttpSession session, @RequestParam("image_file") MultipartFile imageFile,
+                              String x1, String x2, String y1, String y2) throws IOException {
+
+        User user = (User) session.getAttribute("user");
+        //上传地址
+        String path = "D:\\server\\apache-tomcat-8.5.31\\webapps\\video\\";
+
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        String filename = imageFile.getOriginalFilename();
+        System.out.println(filename);
+        filename = filename.substring(filename.lastIndexOf("."));
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        filename = uuid + filename;
+        imageFile.transferTo(new File(path, filename));
+
+        int x1Int = (int) Double.parseDouble(x1);
+        int x2Int = (int) Double.parseDouble(x2);
+        int y1Int = (int) Double.parseDouble(y1);
+        int y2Int = (int) Double.parseDouble(y2);
+        new ImageCut().cutImage(path + "/" + filename, x1Int, y1Int, x2Int - x1Int, y2Int - y1Int);
+
+        //设置ImgUrl属性
+        user.setImgurl(filename);
+        userService.updateUser(user);
+        return "redirect:/user/showMyProfile";
+    }
+
+
+    /**
+     * 上传图片
+     * @param session
+     * @param photo
+     * @return
+     */
+    /*@RequestMapping("/upLoadImage")
     public String upLoadImage(HttpSession session, MultipartFile photo) {
 
         User user = (User) session.getAttribute("user");
@@ -327,6 +375,6 @@ public class UserController {
         user.setImgurl(photoFileName);
         userService.updateUser(user);
         return "/before/change_avatar";
-    }
+    }*/
 
 }

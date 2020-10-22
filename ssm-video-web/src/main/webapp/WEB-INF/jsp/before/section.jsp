@@ -50,7 +50,7 @@
         <div id="userBlock" style="display:none;float:right">
 
             <a href="javascript:;" id="loginout2">退出</a>
-            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="account">${user.email}</a>
+            <a href="${pageContext.request.contextPath}/user/showMyProfile" id="email">${user.email}</a>
         </div>
 
         <a onclick="JavaScript:addFavorite2()"><img src="${pageContext.request.contextPath}/img/sc.png"
@@ -63,7 +63,7 @@
 </header>
 <nav class="w100">
     <div class="container">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Y先生教育的logo" onclick="location.href='index.html'"
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Y先生教育的logo" onclick="location.href='index.jsp'"
              draggable="false">
         <ul class="text_13 f_right">
             <li>

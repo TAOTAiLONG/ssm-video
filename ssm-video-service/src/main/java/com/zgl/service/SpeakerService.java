@@ -14,5 +14,5 @@ public interface SpeakerService {
 
     int saveSpeaker(Speaker speaker);
 
-    void speakerDel(Integer id);
+    int speakerDel(Integer id);
 }

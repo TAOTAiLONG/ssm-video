@@ -23,10 +23,10 @@ public class SubjectController {
      */
     @RequestMapping("/selectAll")
     public String subject_selectAll(Model model) {
-        List<Subject> subjectList = subjectService.findAll();
 
+        List<Subject> subjectList = subjectService.findAll();
         model.addAttribute("subjectList", subjectList);
 
-        return "/before/index";
+        return "before/index";
     }
 }

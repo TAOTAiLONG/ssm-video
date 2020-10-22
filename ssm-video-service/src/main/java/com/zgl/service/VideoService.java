@@ -9,9 +9,9 @@ public interface VideoService {
 
     List<Video> findAllVideo(QueryVo queryVo);
 
-    int UpdateView(Video video);
+    int UpdateVideo(Video video);
 
-    int saveView(Video video);
+    int saveVideo(Video video);
 
     Video findVideoOne(Integer id);
 

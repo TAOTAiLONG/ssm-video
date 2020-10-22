@@ -61,7 +61,6 @@ public class VideoController {
         List<Speaker> speakerList = speakerService.findAll();
         List<Course> courseList = courseService.findAll();
 
-
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("speakerList", speakerList);
         model.addAttribute("courseList", courseList);
@@ -100,9 +99,9 @@ public class VideoController {
     public String saveOrUpdate(Video video) {
 
         if (video.getId() != null) {
-            videoService.UpdateView(video);
+            videoService.UpdateVideo(video);
         } else {
-            videoService.saveView(video);
+            videoService.saveVideo(video);
         }
 
         return "redirect:/video/list";
@@ -169,6 +168,20 @@ public class VideoController {
         model.addAttribute("subjectName", subjectName);
 
         return "before/section";
+    }
+
+    /**
+     * 更新视频观看次数
+     * @param video
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updatePlayNum")
+    public String updatePlayNum(Video video) {
+
+        video.setPlayNum(video.getPlayNum() + 1);
+        videoService.UpdateVideo(video);
+        return "success";
     }
 
 }

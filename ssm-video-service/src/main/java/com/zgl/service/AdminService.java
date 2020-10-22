@@ -4,5 +4,5 @@ import com.zgl.pojo.Admin;
 
 public interface AdminService {
 
-    int login(Admin admin);
+    Integer login(Admin admin);
 }

@@ -18,6 +18,16 @@ public class AdminController {
     private AdminService adminService;
 
     /**
+     * 跳转到后台登陆页面
+     * @return
+     */
+    @RequestMapping("/loginView")
+    public String loginView() {
+
+        return "behind/login";
+    }
+
+    /**
      * 管理员登录
      * @param admin
      * @param session
@@ -28,7 +38,7 @@ public class AdminController {
     public String admin_login(Admin admin, HttpSession session) {
         System.out.println(admin.getUsername() + ":" + admin.getPassword());
 
-        if (adminService.login(admin) != 0) {
+        if (adminService.login(admin) != null) {
             session.setAttribute("admin", admin);
             return "success";
         }
@@ -42,7 +52,8 @@ public class AdminController {
      */
     @RequestMapping("/exit")
     public String admin_exit(HttpSession session) {
-        session.setAttribute("admin", null);
+        session.removeAttribute("admin");
+        //session.setAttribute("admin", null);
         System.out.println(session.getAttributeNames());
         return "behind/login";
     }
