@@ -38,7 +38,7 @@ public class AdminController {
     public String admin_login(Admin admin, HttpSession session) {
         System.out.println(admin.getUsername() + ":" + admin.getPassword());
 
-        if (adminService.login(admin) != null) {
+        if (adminService.login(admin) > 0) {
             session.setAttribute("admin", admin);
             return "success";
         }

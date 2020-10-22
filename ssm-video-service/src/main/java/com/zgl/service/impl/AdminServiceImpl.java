@@ -14,7 +14,7 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public Integer login(Admin admin) {
+    public int login(Admin admin) {
 
         AdminExample example = new AdminExample();
         AdminExample.Criteria criteria = example.createCriteria();
