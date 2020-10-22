@@ -69,9 +69,12 @@
     </bean>
 
     <!--配置文件解析器对象-->
-    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="50000000" />
-    </bean>-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--<property name="maxUploadSize" value="50000000" />-->
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- 单位为B，10M=10*1024*1024=10485760指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
 
     <!-- 两个标准配置 将springmvc不能处理的请求给tomcat -->
     <mvc:default-servlet-handler />
