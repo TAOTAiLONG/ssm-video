@@ -183,7 +183,7 @@ function commitRegForm() {
                     //将注册的user信息展示
                     $("#regBlock").css("display", "none");
                     $("#userBlock").css("display", "block");
-                    parent.location.reload();
+                    //parent.location.reload();
                 }
             },
             error: function () {

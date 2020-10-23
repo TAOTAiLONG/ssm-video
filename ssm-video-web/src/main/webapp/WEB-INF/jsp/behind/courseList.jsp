@@ -167,7 +167,7 @@
                 </c:if>
             </c:forEach>--%>
 
-            <li><a href="${pageContext.request.contextPath }/course/showCourseList?pn=${pageInfo.pageNum}">${pageInfo.pageNum}</a></li>
+            <li class="active"><a href="${pageContext.request.contextPath }/course/showCourseList?pn=${pageInfo.pageNum}">${pageInfo.pageNum}</a></li>
 
             <c:if test="${pageInfo.pageNum != pageInfo.pages || pageInfo.pageNum == null}">
                 <li >

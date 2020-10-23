@@ -66,7 +66,7 @@
         <div id="userBlock" style="display:none;float:right">
 
             <a href="javascript:;" id="loginout">退出</a>
-            <a href="user/showMyProfile" id="email">${user.email}</a>
+            <a href="user/showMyProfile" id="account">${user.email}</a>
         </div>
 
         <a onclick="JavaScript:addFavorite2()"><img src="${pageContext.request.contextPath}/img/sc.png"
