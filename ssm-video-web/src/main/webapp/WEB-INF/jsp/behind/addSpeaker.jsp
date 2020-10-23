@@ -168,12 +168,12 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <%--<div class="form-group">
             <label class="col-sm-2 control-label">讲师照片</label>
             <div class="col-sm-10">
                 <input type="text" name="speakerJob" class="form-control" value="${speaker.headImgUrl}" placeholder="讲师照片">
             </div>
-        </div>
+        </div>--%>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">简介</label>

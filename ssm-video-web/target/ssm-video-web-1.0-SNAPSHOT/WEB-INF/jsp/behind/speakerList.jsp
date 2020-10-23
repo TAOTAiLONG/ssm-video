@@ -113,8 +113,8 @@
             <th>序号</th>
             <th>名称</th>
             <th>职位</th>
-            <th style="width:60%;">简介</th>
             <%--<th>照片</th>--%>
+            <th style="width:60%;">简介</th>
             <th>编辑</th>
             <th>删除</th>
         </tr>
@@ -125,8 +125,8 @@
                 <td>${status.index+1}</td>
                 <td>${speaker.speakerName}</td>
                 <td>${speaker.speakerJob}</td>
-                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${speaker.speakerDesc}</td>
                 <%--<td>${speaker.headImgUrl}</td>--%>
+                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${speaker.speakerDesc}</td>
                 <td><a href="${pageContext.request.contextPath}/speaker/addSpeakerView?id=${speaker.id}"><span
                         class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
                 <td><a href="#" onclick="return delSpeakerById(this,'${speaker.id}','${speaker.speakerName}')"><span
