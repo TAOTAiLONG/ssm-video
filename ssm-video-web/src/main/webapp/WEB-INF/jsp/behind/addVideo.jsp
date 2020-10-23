@@ -105,7 +105,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${pageContext.request.contextPath}/video/list">视频管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/speaker/showSpeakerList">主讲人管理</a></li>
-                <li><a href="${pageContext.request.contextPath}/showCourseList">课程管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/course/showCourseList">课程管理</a></li>
 
 
             </ul>

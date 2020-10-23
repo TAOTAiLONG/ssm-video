@@ -127,7 +127,7 @@
                 <td>${speaker.speakerJob}</td>
                 <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${speaker.speakerDesc}</td>
                 <%--<td>${speaker.headImgUrl}</td>--%>
-                <td><a href="${pageContext.request.contextPath}/speaker/addSpeaker?id=${speaker.id}"><span
+                <td><a href="${pageContext.request.contextPath}/speaker/addSpeakerView?id=${speaker.id}"><span
                         class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
                 <td><a href="#" onclick="return delSpeakerById(this,'${speaker.id}','${speaker.speakerName}')"><span
                         class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>

@@ -306,7 +306,7 @@ public class UserController {
     /**
      * 上传图片
      * @param session
-     * @param photo
+     * @param
      * @return
      */
     @RequestMapping("/upLoadImage")
@@ -316,7 +316,6 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         //上传地址
         String path = "D:\\server\\apache-tomcat-8.5.31\\webapps\\video\\";
-
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();

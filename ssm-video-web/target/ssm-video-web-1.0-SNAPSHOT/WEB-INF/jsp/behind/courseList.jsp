@@ -89,7 +89,7 @@
 
 <div class="jumbotron" style="padding-top: 15px;padding-bottom: 15px;">
     <div class="container">
-        <h2>主讲人管理</h2>
+        <h2>课程管理</h2>
     </div>
 </div>
 

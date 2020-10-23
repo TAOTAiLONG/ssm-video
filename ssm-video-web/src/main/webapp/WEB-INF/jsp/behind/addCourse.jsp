@@ -109,9 +109,9 @@
         <div class="collapse navbar-collapse"
              id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}/video/list">视频管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/video/list">视频管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/speaker/showSpeakerList">主讲人管理</a></li>
-                <li><a href="${pageContext.request.contextPath}/showCourseList">课程管理</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/course/showCourseList">课程管理</a></li>
 
 
             </ul>
@@ -133,11 +133,11 @@
     <div class="container">
 
         <%-- <c:if test="empty ${video.id}"> --%>
-        <c:if test="${empty courseId.id}">
+        <c:if test="${empty course.id}">
             <h2>添加课程信息</h2>
         </c:if>
 
-        <c:if test="${not empty courseId.id}">
+        <c:if test="${not empty course.id}">
             <h2>修改课程信息</h2>
         </c:if>
 
